@@ -18,7 +18,7 @@ namespace NotificationSystem_RabbitMQ.Controllers
         [HttpPost]
         public IActionResult Post([FromBody] Message request)
         {
-            _producer.SendProductMessage(request);
+            _producer.Send(request);
             return Ok(new {Message = "Message has been sent successfully."});
         }
     }

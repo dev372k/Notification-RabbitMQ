@@ -2,6 +2,7 @@
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 using Shared;
+using Shared.Commons;
 using System.Text;
 
 var factory = new ConnectionFactory
@@ -13,7 +14,7 @@ var connection = factory.CreateConnection();
 
 using var channel = connection.CreateModel();
 
-channel.QueueDeclare("message", exclusive: false);
+channel.QueueDeclare(CustomContants.ROUTING_KEY, exclusive: false);
 
 var consumer = new EventingBasicConsumer(channel);
 consumer.Received += (model, eventArgs) =>
@@ -34,5 +35,5 @@ consumer.Received += (model, eventArgs) =>
 };
 
 //read the message
-channel.BasicConsume(queue: "message", autoAck: true, consumer: consumer);
+channel.BasicConsume(queue: CustomContants.ROUTING_KEY, autoAck: true, consumer: consumer);
 Console.ReadKey();

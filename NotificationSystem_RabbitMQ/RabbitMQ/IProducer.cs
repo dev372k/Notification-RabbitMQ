@@ -2,6 +2,6 @@
 {
     public interface IProducer
     {
-        public void SendProductMessage<T>(T message);
+        public void Send<T>(T message);
     }
 }
